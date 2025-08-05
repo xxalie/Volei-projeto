@@ -1,0 +1,143 @@
+/* ==================== GLOBAL ==================== */
+body {
+  font-family: Arial, sans-serif;
+  background: #241343;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==================== CONTAINER ==================== */
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #bfd0d6;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ==================== TÍTULOS ==================== */
+h1 {
+  color: #a586e6;
+  text-align: center;
+}
+
+h2 {
+  color: #2b0f45;
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ==================== TEXTOS ==================== */
+p {
+  color: #2b0f45;
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+/* ==================== TABELA ==================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #060505;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #120136;
+  color: #fff;
+}
+
+/* ==================== LINKS ==================== */
+a {
+  color: #1b1b82;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #eb0b0f;
+  text-decoration: underline;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: white;
+  font-size: 14px;
+}
+
+/* ==================== GALERIA ==================== */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.gallery img {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  height: 500px;
+  object-fit: cover;
+}
+
+/* ==================== FORMULÁRIO ==================== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+
+button {
+  background-color: #120136;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #341f97;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+@media (max-width: 600px) {
+  .container {
+    padding: 12px;
+  }
+
+  h1, h2 {
+    font-size: 22px;
+  }
+
+  table, th, td {
+    font-size: 14px;
+  }
+
+  .gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery img {
+    width: 90%;
+  }
+}
