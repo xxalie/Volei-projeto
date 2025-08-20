@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Vôlei de Praia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="Sportsbettingspot-Summer-Olympics-Beach-volley.128.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+
+  <nav>
+  <ul>
+    <li><a href="#torneios">Torneios</a></li>
+    <li><a href="#inscricao">Inscrição</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+  </ul>
+</nav>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1 id="inicio">Vôlei de Praia Amador</h1>
+  </header>
+
+  <main>
+
+    <!-- Seção de torneios -->
+    <section id="torneios" class="container">
+      <h2>Torneios de Vôlei</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome do Torneio</th>
+            <th>Data</th>
+            <th>Local</th>
+            <th>Inscrições Abertas</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Torneio de Verão</td>
+            <td>15/01/2024</td>
+            <td>Praia do Futuro, CE</td>
+            <td>Sim</td>
+            <td><a href="https://example.com/torneio-verao" target="_blank">Mais Informações</a></td>
+          </tr>
+          <tr>
+            <td>Copa Praia 2024</td>
+            <td>20/02/2024</td>
+            <td>Copacabana, RJ</td>
+            <td>Não</td>
+            <td><a href="https://example.com/copa-praia" target="_blank">Mais Informações</a></td>
+          </tr>
+          <tr>
+            <td>Campeonato Nacional de Vôlei de Praia</td>
+            <td>12/02/2025</td>
+            <td>Goiânia, GO</td>
+            <td>Sim</td>
+            <td><a href="https://example.com/campeonato-nacional" target="_blank">Mais Informações</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Seção de inscrição (agora abaixo dos torneios) -->
+    <section id="inscricao" class="container">
+      <h2>Inscreva-se</h2>
+      <form>
+        <input type="text" name="nome" placeholder="Seu nome completo" required>
+        <input type="tel" name="WhatsApp" placeholder="Seu WhatsApp" required>
+        <select name="torneio" required>
+          <option value="">Selecione o Torneio</option>
+          <option value="verao">Torneio de Verão</option>
+          <option value="copa">Copa Praia 2024</option>
+          <option value="nacional">Campeonato Nacional</option>
+        </select>
+       <button type="submit" class="botao-inscricao">Enviar Inscrição</button>
+      <p id="mensagem-enviada" style="display: none; color: green;">Inscrição enviada com sucesso!</p>
+      </form>
+    </section>
+
+    <!-- Seção de galeria -->
+    <section id="galeria" class="container">
+      <h2>Galeria de Fotos</h2>
+      <div class="gallery">
+        <img src="flyer/porto.png" alt="Foto Torneio 1">
+        <img src="https://via.placeholder.com/200x120?text=Torneio+2" alt="Foto Torneio 2">
+        <img src="https://via.placeholder.com/200x120?text=Torneio+3" alt="Foto Torneio 3">
+      </div>
+    </section>
+
+  </main>
+
+<a href="#inicio" class="voltar-topo">↑ Voltar ao topo</a>
+
+  <!-- Rodapé -->
+  <footer>
+    <p>&copy; 2025 Vôlei de Praia Amador. Todos os direitos reservados.</p>
+  </footer>
+
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("mensagem-enviada").style.display = "block";
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
