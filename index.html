@@ -6,18 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="Sportsbettingspot-Summer-Olympics-Beach-volley.128.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
-  
 </head>
 
 <body>
 
   <nav>
-  <ul>
-    <li><a href="#torneios">Torneios</a></li>
-    <li><a href="#inscricao">Inscrição</a></li>
-    <li><a href="#galeria">Galeria</a></li>
-  </ul>
-</nav>
+    <ul>
+      <li><a href="#torneios">Torneios</a></li>
+      <li><a href="#inscricao">Inscrição</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+    </ul>
+  </nav>
 
   <!-- Cabeçalho -->
   <header>
@@ -65,21 +64,27 @@
       </table>
     </section>
 
-    <!-- Seção de inscrição (agora abaixo dos torneios) -->
+    <!-- Seção de inscrição -->
     <section id="inscricao" class="container">
       <h2>Inscreva-se</h2>
-      <form>
-        <input type="text" name="nome" placeholder="Seu nome completo" required>
-        <input type="tel" name="WhatsApp" placeholder="Seu WhatsApp" required>
-        <select name="torneio" required>
+      <form id="form-inscricao">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome completo" required>
+
+        <label for="whatsapp">WhatsApp:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="Seu WhatsApp" required>
+
+        <label for="torneio">Selecione o Torneio:</label>
+        <select id="torneio" name="torneio" required>
           <option value="">Selecione o Torneio</option>
           <option value="verao">Torneio de Verão</option>
           <option value="copa">Copa Praia 2024</option>
           <option value="nacional">Campeonato Nacional</option>
         </select>
-       <button type="submit" class="botao-inscricao">Enviar Inscrição</button>
-      <p id="mensagem-enviada" style="display: none; color: green;">Inscrição enviada com sucesso!</p>
+
+        <button type="submit" class="botao-inscricao">Enviar Inscrição</button>
       </form>
+      <p id="resposta"></p>
     </section>
 
     <!-- Seção de galeria -->
@@ -94,21 +99,14 @@
 
   </main>
 
-<a href="#inicio" class="voltar-topo">↑ Voltar ao topo</a>
+  <a href="#inicio" class="voltar-topo">↑ Voltar ao topo</a>
 
   <!-- Rodapé -->
   <footer>
     <p>&copy; 2025 Vôlei de Praia Amador. Todos os direitos reservados.</p>
   </footer>
 
-<script>
-  const form = document.querySelector("form");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    document.getElementById("mensagem-enviada").style.display = "block";
-    form.reset();
-  });
-</script>
+   <script src="inscricoes.js"></script>
 
 </body>
 </html>
