@@ -209,3 +209,9 @@ nav a:hover {
 .voltar-topo:hover {
   color: #FFD700;
 }
+#tabela-inscritos, #tabela-inscritos + h3 {
+  display: none;
+}
+#tabela-inscritos.visible, #tabela-inscritos + h3.visible {
+  display: table;
+}

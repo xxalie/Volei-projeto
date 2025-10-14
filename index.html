@@ -18,14 +18,13 @@
     </ul>
   </nav>
 
-  <!-- Cabeçalho -->
   <header>
     <h1 id="inicio">Vôlei de Praia Amador</h1>
   </header>
 
   <main>
 
-    <!-- Seção de torneios -->
+    <!-- Torneios -->
     <section id="torneios" class="container">
       <h2>Torneios de Vôlei</h2>
       <table>
@@ -42,21 +41,33 @@
           <tr>
             <td>Torneio de Verão</td>
             <td>15/01/2024</td>
-            <td>Praia do Futuro, CE</td>
+            <td>
+              <a href="https://www.google.com/maps/place/Praia+do+Futuro/@-3.7392636,-38.4921149,13z/data=!3m1!4b1!4m6!3m5!1s0x7c747be96378151:0x566f88a305935f84!8m2!3d-3.7492867!4d-38.4470984!16s%2Fg%2F1s067bqdz?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+                 Praia do Futuro, CE
+                 </a>
+                </td>
             <td>Sim</td>
             <td><a href="https://example.com/torneio-verao" target="_blank">Mais Informações</a></td>
           </tr>
           <tr>
             <td>Copa Praia 2024</td>
             <td>20/02/2024</td>
-            <td>Copacabana, RJ</td>
+            <td>
+              <a href="https://www.google.com/maps?q=Copacabana,+RJ" target="_blank">
+                Copacabana, RJ
+              </a>
+            </td>
             <td>Não</td>
             <td><a href="https://example.com/copa-praia" target="_blank">Mais Informações</a></td>
           </tr>
           <tr>
             <td>Campeonato Nacional de Vôlei de Praia</td>
             <td>12/02/2025</td>
-            <td>Goiânia, GO</td>
+            <td>
+              <a href="https://www.google.com/maps/place/Narena+Beach+Sports/@-16.7951619,-49.3651537,17z/data=!3m1!4b1!4m6!3m5!1s0x935ef90c3017818b:0x5dcaa50565859275!8m2!3d-16.7951671!4d-49.3602828!16s%2Fg%2F11whf0w1dz?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+                Goiânia, GO
+              </a>
+              </td>
             <td>Sim</td>
             <td><a href="https://example.com/campeonato-nacional" target="_blank">Mais Informações</a></td>
           </tr>
@@ -64,7 +75,7 @@
       </table>
     </section>
 
-    <!-- Seção de inscrição -->
+    <!-- Inscrição -->
     <section id="inscricao" class="container">
       <h2>Inscreva-se</h2>
       <form id="form-inscricao">
@@ -87,7 +98,7 @@
       <p id="resposta"></p>
     </section>
 
-    <!-- Seção de galeria -->
+    <!-- Galeria -->
     <section id="galeria" class="container">
       <h2>Galeria de Fotos</h2>
       <div class="gallery">
@@ -101,12 +112,21 @@
 
   <a href="#inicio" class="voltar-topo">↑ Voltar ao topo</a>
 
-  <!-- Rodapé -->
   <footer>
     <p>&copy; 2025 Vôlei de Praia Amador. Todos os direitos reservados.</p>
   </footer>
 
-   <script src="inscricoes.js"></script>
-
 </body>
+<!-- Adicione este script no final do body -->
+<script>
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // impede envio real (por enquanto)
+    alert("Inscrição enviada com sucesso!");
+    form.reset(); // limpa os campos
+  });
+</script>
+
 </html>
+
