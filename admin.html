@@ -6,33 +6,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <nav>
       <ul>
         <li><a href="index.html">Voltar ao Site</a></li>
+        <li><a href="" id="logout">Sair</a></li>
       </ul>
     </nav>
 
     <main class="container">
-      <h2>Lista de Inscritos</h2>
-      <table id="tabela-inscritos">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>WhatsApp</th>
-            <th>Torneio</th>
-            <th>Data de Inscrição</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colspan="6">Carregando inscritos...</td>
-          </tr>
-        </tbody>
-      </table>
-      <p id="resposta"></p>
+      <h1>Painel do Organizador</h1>
+
+      <!-- FORMULÁRIO DE CRIAÇÃO DE TORNEIO -->
+      <section id="criar-torneio" class="container">
+        <h2>Criar Novo Torneio</h2>
+        <form id="formTorneio">
+          <label for="nome">Nome do Torneio:</label>
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            placeholder="Ex: Copa Verão"
+            required
+          />
+
+          <label for="local">Local do Evento:</label>
+          <input
+            type="text"
+            id="local"
+            name="local"
+            placeholder="Ex: Praia Central"
+            required
+          />
+
+          <label for="data">Data do Evento:</label>
+          <input type="date" id="data" name="data" required />
+
+          <label for="descricao">Descrição:</label>
+          <textarea
+            id="descricao"
+            name="descricao"
+            rows="3"
+            placeholder="Ex: Torneio aberto para todos os níveis"
+            required
+          ></textarea>
+
+          <label for="link">Link (Google Maps, Instagram, etc):</label>
+          <input type="url" id="link" name="link" placeholder="https://..." />
+
+          <button type="submit">Criar Torneio</button>
+        </form>
+        <p id="msgTorneio"></p>
+      </section>
+
+      <!-- LISTA DE TORNEIOS -->
+      <section id="lista-torneios" class="container">
+        <h2>Torneios Criados</h2>
+        <table id="tabela-torneios">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Local</th>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Link</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="7">Carregando torneios...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- LISTA DE INSCRITOS -->
+      <section id="inscritos" class="container">
+        <h2>Inscrições por Torneio</h2>
+        <div id="painel-inscritos">
+          <p>Carregando inscrições...</p>
+        </div>
+      </section>
     </main>
 
     <footer>
