@@ -36,66 +36,14 @@
               <th>Nome do Torneio</th>
               <th>Data</th>
               <th>Local</th>
+              <th>Descrição</th>
               <th>Inscrições Abertas</th>
               <th>Link</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="listaTorneios">
             <tr>
-              <td>Torneio de Verão</td>
-              <td>15/01/2024</td>
-              <td>
-                <a
-                  href="https://www.google.com/maps/place/Praia+do+Futuro/@-3.7392636,-38.4921149,13z/data=!3m1!4b1!4m6!3m5!1s0x7c747be96378151:0x566f88a305935f84!8m2!3d-3.7492867!4d-38.4470984!16s%2Fg%2F1s067bqdz?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D"
-                  target="_blank"
-                >
-                  Praia do Futuro, CE
-                </a>
-              </td>
-              <td>Sim</td>
-              <td>
-                <a href="https://example.com/torneio-verao" target="_blank"
-                  >Mais Informações</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>Copa Praia 2024</td>
-              <td>20/02/2024</td>
-              <td>
-                <a
-                  href="https://www.google.com/maps?q=Copacabana,+RJ"
-                  target="_blank"
-                >
-                  Copacabana, RJ
-                </a>
-              </td>
-              <td>Não</td>
-              <td>
-                <a href="https://example.com/copa-praia" target="_blank"
-                  >Mais Informações</a
-                >
-              </td>
-            </tr>
-            <tr>
-              <td>Campeonato Nacional de Vôlei de Praia</td>
-              <td>12/02/2025</td>
-              <td>
-                <a
-                  href="https://www.google.com/maps/place/Narena+Beach+Sports/@-16.7951619,-49.3651537,17z/data=!3m1!4b1!4m6!3m5!1s0x935ef90c3017818b:0x5dcaa50565859275!8m2!3d-16.7951671!4d-49.3602828!16s%2Fg%2F11whf0w1dz?entry=ttu&g_ep=EgoyMDI1MDkyOC4wIKXMDSoASAFQAw%3D%3D"
-                  target="_blank"
-                >
-                  Goiânia, GO
-                </a>
-              </td>
-              <td>Sim</td>
-              <td>
-                <a
-                  href="https://example.com/campeonato-nacional"
-                  target="_blank"
-                  >Mais Informações</a
-                >
-              </td>
+              <td colspan="5">Carregando torneios...</td>
             </tr>
           </tbody>
         </table>
@@ -105,36 +53,50 @@
       <section id="inscricao" class="container">
         <h2>Inscreva-se</h2>
         <form id="form-inscricao">
-          <label for="nome">Nome Completo:</label>
+          <label for="nome">Nome do Jogador:</label>
           <input
             type="text"
             id="nome"
             name="nome"
-            placeholder="Seu nome completo"
+            placeholder="Digite o nome completo"
             required
           />
 
-          <label for="whatsapp">WhatsApp:</label>
+          <label for="email">E-mail:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Seu e-mail"
+          />
+
+          <label for="telefone">Telefone / WhatsApp:</label>
           <input
             type="tel"
-            id="whatsapp"
-            name="whatsapp"
-            placeholder="Seu WhatsApp"
+            id="telefone"
+            name="telefone"
+            placeholder="(DDD) 99999-9999"
             required
+          />
+
+          <label for="dupla">Nome da Dupla:</label>
+          <input
+            type="text"
+            id="dupla"
+            name="dupla"
+            placeholder="Digite o nome do parceiro (opcional)"
           />
 
           <label for="torneio">Selecione o Torneio:</label>
           <select id="torneio" name="torneio" required>
             <option value="">Selecione o Torneio</option>
-            <option value="verao">Torneio de Verão</option>
-            <option value="copa">Copa Praia 2024</option>
-            <option value="nacional">Campeonato Nacional</option>
           </select>
 
           <button type="submit" class="botao-inscricao">
             Enviar Inscrição
           </button>
         </form>
+
         <p id="resposta"></p>
       </section>
 
@@ -163,12 +125,108 @@
   </body>
   <!-- Adicione este script no final do body -->
   <script>
-    const form = document.querySelector("form");
+    // --- Carregar tabela de torneios no site ---
+    async function carregarTabelaTorneios() {
+      const tabela = document.getElementById("listaTorneios");
+      tabela.innerHTML = "<tr><td colspan='5'>Carregando torneios...</td></tr>";
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault(); // impede envio real (por enquanto)
-      alert("Inscrição enviada com sucesso!");
-      form.reset(); // limpa os campos
+      try {
+        const resposta = await fetch("http://localhost:8800/torneios");
+        const dados = await resposta.json();
+
+        tabela.innerHTML = "";
+
+        if (!dados.data || dados.data.length === 0) {
+          tabela.innerHTML =
+            "<tr><td colspan='5'>Nenhum torneio disponível no momento.</td></tr>";
+          return;
+        }
+
+        dados.data.forEach((t) => {
+          const linha = document.createElement("tr");
+          linha.innerHTML = `
+            <td>${t.nome}</td>
+            <td>${new Date(t.data).toLocaleDateString("pt-BR")}</td>
+            <td>${t.local}</td>
+            <td>${t.descricao || "-"}</td>
+            <td>Sim</td>
+            <td>
+              ${
+                t.link
+                  ? `<a href="${t.link}" target="_blank">Acessar Link</a>`
+                  : "-"
+              }
+            </td>
+          `;
+          tabela.appendChild(linha);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar torneios:", error);
+        tabela.innerHTML =
+          "<tr><td colspan='5'>Erro ao carregar os torneios.</td></tr>";
+      }
+    }
+
+    // --- Carregar torneios no select do formulário ---
+    async function carregarSelectTorneios() {
+      try {
+        const resp = await fetch("http://localhost:8800/torneios");
+        const dados = await resp.json();
+        const select = document.getElementById("torneio");
+
+        select.innerHTML = '<option value="">Selecione o Torneio</option>';
+        dados.data.forEach((t) => {
+          const option = document.createElement("option");
+          option.value = t.id;
+          option.textContent = t.nome;
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar torneios:", error);
+      }
+    }
+
+    // --- Executar as duas ao abrir a página ---
+    carregarTabelaTorneios();
+    carregarSelectTorneios();
+
+    // --- Envio do formulário ---
+    const form = document.getElementById("form-inscricao");
+    const resposta = document.getElementById("resposta");
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const dados = {
+        nome_jogador: document.getElementById("nome").value,
+        email_jogador: document.getElementById("email").value,
+        telefone: document.getElementById("telefone").value,
+        dupla: document.getElementById("dupla").value,
+        torneio_id: document.getElementById("torneio").value,
+      };
+
+      try {
+        const resp = await fetch("http://localhost:8800/inscricoes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dados),
+        });
+
+        const resultado = await resp.json();
+
+        if (resp.ok) {
+          resposta.textContent = "Inscrição enviada com sucesso!";
+          resposta.style.color = "green";
+          form.reset();
+        } else {
+          resposta.textContent =
+            resultado.message || "Erro ao enviar inscrição.";
+          resposta.style.color = "red";
+        }
+      } catch (error) {
+        resposta.textContent = "Erro de conexão com o servidor.";
+        resposta.style.color = "red";
+      }
     });
   </script>
 </html>
