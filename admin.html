@@ -90,12 +90,46 @@
           <p>Carregando inscrições...</p>
         </div>
       </section>
+
+      <section class="ActionsData">
+        <button id="btnRelatorio">Gerar Relatório de Inscrições</button>
+        <button id="btnHistorico">Historico de Inscrições</button>
+      </section>
+
+      <section id="historicoSection" style="display: none; margin-top: 30px">
+        <h3>Histórico de Inscrições</h3>
+        <table id="tabelaHistorico">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome do Jogador</th>
+              <th>Torneio</th>
+              <th>Ação</th>
+              <th>Data e Hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="5">Carregando histórico...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Seção que exibirá o relatório -->
+      <section id="relatorio" style="display: none; margin-top: 30px">
+        <h3>Relatório Geral</h3>
+        <div id="dadosRelatorio"></div>
+
+        <h3>Gráfico de Inscrições por Torneio</h3>
+        <canvas id="graficoTorneios" width="400" height="200"></canvas>
+      </section>
     </main>
 
     <footer>
       <p>&copy; 2025 Vôlei de Praia Amador. Área do administrador.</p>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="admin.js"></script>
   </body>
 </html>

@@ -196,6 +196,45 @@ app.delete("/inscricoes/:id", async (req, res) => {
   }
 });
 
+// Rota de relatório (chama a procedure no MySQL)
+app.get("/relatorio", async (req, res) => {
+  try {
+    const [resultSets] = await pool.query("CALL relatorio_inscricoes()");
+
+    // MySQL retorna múltiplos conjuntos, então normalizamos:
+    const relatorio = {
+      total_por_torneio: resultSets[0],
+      lista_inscritos: resultSets[1],
+      torneio_popular: resultSets[2][0],
+      dia_com_mais_inscricoes: resultSets[3][0],
+      media_inscricoes: resultSets[4][0],
+      ultimo_torneio: resultSets[5][0],
+    };
+
+    res.json({ success: true, relatorio });
+  } catch (err) {
+    console.error("Erro ao gerar relatório:", err);
+    res
+      .status(500)
+      .json({ success: false, message: "Erro ao gerar relatório" });
+  }
+});
+
+// Rota para buscar o histórico de inscrições (trigger)
+app.get("/historico", async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      "SELECT id, nome_jogador, torneio_nome, acao, DATE_FORMAT(data_hora, '%d/%m/%Y %H:%i') AS data_hora FROM historico_inscricoes ORDER BY data_hora DESC"
+    );
+    res.json({ success: true, data: rows });
+  } catch (error) {
+    console.error("Erro ao carregar histórico:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Erro ao buscar histórico" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API rodando em http://localhost:${PORT}`);
 });
