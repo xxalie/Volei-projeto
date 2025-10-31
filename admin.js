@@ -6,6 +6,117 @@
   }
 })();
 
+// === GERAR RELATÓRIO ===
+const btnRelatorio = document.getElementById("btnRelatorio");
+const secaoRelatorio = document.getElementById("relatorio");
+const dadosRelatorio = document.getElementById("dadosRelatorio");
+
+btnRelatorio.addEventListener("click", async () => {
+  try {
+    const resp = await fetch("http://localhost:8800/relatorio");
+    const data = await resp.json();
+
+    if (!data.success) {
+      alert("Erro ao gerar relatório!");
+      return;
+    }
+
+    const r = data.relatorio;
+
+    // Mostra informações textuais
+    dadosRelatorio.innerHTML = `
+      <p><strong>Torneio mais popular:</strong> ${
+        r.torneio_popular?.torneio_mais_popular || "—"
+      } (${r.torneio_popular?.total || 0} inscrições)</p>
+      <p><strong>Dia com mais inscrições:</strong> ${
+        r.dia_com_mais_inscricoes?.data || "—"
+      } (${r.dia_com_mais_inscricoes?.total_no_dia || 0})</p>
+      <p><strong>Média de inscrições por torneio:</strong> ${
+        r.media_inscricoes?.media_inscricoes || 0
+      }</p>
+      <p><strong>Último torneio criado:</strong> ${
+        r.ultimo_torneio?.ultimo_torneio || "—"
+      } (${r.ultimo_torneio?.local_evento || ""})</p>
+    `;
+
+    // === GRÁFICO ===
+    const ctx = document.getElementById("graficoTorneios").getContext("2d");
+    const nomes = r.total_por_torneio.map((t) => t.torneio);
+    const valores = r.total_por_torneio.map((t) => t.total_inscritos);
+
+    if (window.grafico) window.grafico.destroy(); // evita sobreposição
+    window.grafico = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: nomes,
+        datasets: [
+          {
+            label: "Inscrições por Torneio",
+            data: valores,
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: { y: { beginAtZero: true } },
+      },
+    });
+
+    secaoRelatorio.style.display = "block";
+    window.scrollTo({ top: secaoRelatorio.offsetTop, behavior: "smooth" });
+  } catch (error) {
+    console.error("Erro ao gerar relatório:", error);
+    alert("Erro de conexão com o servidor.");
+  }
+});
+
+// === HISTÓRICO DE INSCRIÇÕES ===
+const btnHistorico = document.getElementById("btnHistorico");
+const historicoSection = document.getElementById("historicoSection");
+const tabelaHistorico = document.querySelector("#tabelaHistorico tbody");
+
+btnHistorico.addEventListener("click", async () => {
+  try {
+    historicoSection.style.display = "block";
+    tabelaHistorico.innerHTML =
+      "<tr><td colspan='5'>Carregando histórico...</td></tr>";
+
+    const resp = await fetch("http://localhost:8800/historico");
+    const data = await resp.json();
+
+    if (!data.success) {
+      tabelaHistorico.innerHTML =
+        "<tr><td colspan='5'>Erro ao carregar histórico.</td></tr>";
+      return;
+    }
+
+    if (data.data.length === 0) {
+      tabelaHistorico.innerHTML =
+        "<tr><td colspan='5'>Nenhum registro encontrado.</td></tr>";
+      return;
+    }
+
+    tabelaHistorico.innerHTML = "";
+    data.data.forEach((h) => {
+      const linha = document.createElement("tr");
+      linha.innerHTML = `
+        <td>${h.id}</td>
+        <td>${h.nome_jogador}</td>
+        <td>${h.torneio_nome}</td>
+        <td>${h.acao}</td>
+        <td>${h.data_hora}</td>
+      `;
+      tabelaHistorico.appendChild(linha);
+    });
+
+    window.scrollTo({ top: historicoSection.offsetTop, behavior: "smooth" });
+  } catch (error) {
+    console.error("Erro ao buscar histórico:", error);
+    tabelaHistorico.innerHTML =
+      "<tr><td colspan='5'>Erro de conexão.</td></tr>";
+  }
+});
+
 // =================== LOGOUT ===================
 document.getElementById("logout").addEventListener("click", () => {
   sessionStorage.removeItem("isAdmin");

@@ -4,7 +4,7 @@ html {
 }
 body {
   font-family: Arial, sans-serif;
-  background: #F0F4F8;
+  background: #f0f4f8;
   margin: 0;
   padding: 0;
 }
@@ -13,15 +13,15 @@ body {
 .container {
   max-width: 800px;
   margin: 40px auto;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ==================== TÍTULOS ==================== */
 h1 {
-  color: #0057A0;
+  color: #0057a0;
   text-align: center;
 }
 
@@ -46,29 +46,30 @@ table {
   margin-top: 20px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #050606;
   padding: 8px;
   text-align: center;
 }
 
 th {
-  background: #FFD700;
-  color: #0057A0;
+  background: #ffd700;
+  color: #0057a0;
 }
 td {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #333333;
 }
 
 /* ==================== LINKS ==================== */
 a {
-  color: #0057A0;
+  color: #0057a0;
   text-decoration: none;
 }
 
 a:hover {
-  color: #FFD700;
+  color: #ffd700;
   text-decoration: underline;
 }
 
@@ -111,42 +112,47 @@ form {
 
 label {
   font-weight: bold;
-  color: #0057A0;
+  color: #0057a0;
 }
 
 input,
 select {
   padding: 10px;
   border-radius: 5px;
-  border: 2px solid #FFD700;
+  border: 2px solid #ffd700;
   font-size: 16px;
 }
 input:focus,
 select:focus {
   outline: none;
-  border-color: #0057A0;
-  box-shadow: 0 0 5px #0057A0;
+  border-color: #0057a0;
+  box-shadow: 0 0 5px #0057a0;
 }
 button {
   padding: 10px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
-  background-color: #0057A0;
+  background-color: #0057a0;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: 2px solid #FFD700;
+  border: 2px solid #ffd700;
 }
 
 button:hover {
-  background-color: #003F73;
-  border-color: #FFC107;
+  background-color: #003f73;
+  border-color: #ffc107;
 }
 
 #resposta {
   margin-top: 10px;
   font-weight: bold;
+}
+
+.ActionsData {
+  display: flex;
+  justify-content: space-around;
 }
 
 /* ==================== RESPONSIVIDADE ==================== */
@@ -155,11 +161,14 @@ button:hover {
     padding: 12px;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
     font-size: 22px;
   }
 
-  table, th, td {
+  table,
+  th,
+  td {
     font-size: 14px;
   }
 
@@ -174,7 +183,7 @@ button:hover {
   }
 }
 nav {
-  background-color: #0057A0;
+  background-color: #0057a0;
   padding: 10px 0;
   text-align: center;
   position: sticky;
@@ -196,22 +205,24 @@ nav a {
   text-decoration: none;
 }
 nav a:hover {
-  color: #FFD700;
+  color: #ffd700;
 }
 .voltar-topo {
   display: block;
   text-align: center;
   margin: 30px 0;
-  color: #0057A0;
+  color: #0057a0;
   text-decoration: none;
   font-weight: bold;
 }
 .voltar-topo:hover {
-  color: #FFD700;
+  color: #ffd700;
 }
-#tabela-inscritos, #tabela-inscritos + h3 {
+#tabela-inscritos,
+#tabela-inscritos + h3 {
   display: none;
 }
-#tabela-inscritos.visible, #tabela-inscritos + h3.visible {
+#tabela-inscritos.visible,
+#tabela-inscritos + h3.visible {
   display: table;
 }
