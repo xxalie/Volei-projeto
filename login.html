@@ -67,7 +67,8 @@
     </footer>
 
     <script>
-      // Credenciais fixas por enquanto
+      const API_BASE = "https://volei-api-9efn.onrender.com";
+
       const FIXED_USER = "AdmArena";
       const FIXED_PASS = "2020";
 
@@ -80,35 +81,28 @@
         const usuario = document.getElementById("usuario").value.trim();
         const senha = document.getElementById("senha").value;
 
-        // Primeiro: tentar validar via API (se seu backend já estiver rodando)
         try {
-          const resp = await fetch("http://localhost:8800/login", {
+          const resp = await fetch(`${API_BASE}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ usuario, senha }),
           });
 
           if (resp.ok) {
-            // login ok via backend
-            sessionStorage.setItem("isAdmin", "true"); // marca sessão
+            sessionStorage.setItem("isAdmin", "true");
             window.location.href = "admin.html";
             return;
-          } else {
-            // se backend respondeu 401, exibir erro e não tentar fallback local
-            if (resp.status === 401) {
-              mensagem.textContent = "Usuário ou senha incorretos.";
-              mensagem.className = "mensagem-erro";
-              return;
-            }
+          } else if (resp.status === 401) {
+            mensagem.textContent = "Usuário ou senha incorretos.";
+            mensagem.className = "mensagem-erro";
+            return;
           }
         } catch (err) {
-          // se erro de conexão com backend (ex: backend não rodando), fazemos fallback local
-          // console.warn('API login inacessível, usando validação local', err);
+          // se der erro na API, tenta fallback local
         }
 
-        // Fallback local: validação com credenciais fixas (útil enquanto não tem backend)
         if (usuario === FIXED_USER && senha === FIXED_PASS) {
-          sessionStorage.setItem("isAdmin", "true"); // guarda flag simples na sessão
+          sessionStorage.setItem("isAdmin", "true");
           mensagem.textContent = "Login bem-sucedido. Redirecionando...";
           mensagem.className = "mensagem-sucesso";
           setTimeout(() => (window.location.href = "admin.html"), 600);

@@ -22,6 +22,35 @@ CREATE TABLE IF NOT EXISTS inscricoes (
     FOREIGN KEY (torneio_id) REFERENCES torneios(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS historico_inscricoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    inscricao_id INT,
+    nome_jogador VARCHAR(100),
+    torneio_nome VARCHAR(100),
+    acao VARCHAR(50),
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DELIMITER $$
+
+CREATE TRIGGER log_nova_inscricao
+AFTER INSERT ON inscricoes
+FOR EACH ROW
+BEGIN
+    DECLARE torneio_nome_var VARCHAR(100);
+
+    -- Buscar o nome do torneio referente à inscrição
+    SELECT nome INTO torneio_nome_var FROM torneios WHERE id = NEW.torneio_id;
+
+    -- Inserir o registro no histórico
+    INSERT INTO historico_inscricoes (inscricao_id, nome_jogador, torneio_nome, acao)
+    VALUES (NEW.id, NEW.nome_jogador, torneio_nome_var, 'Nova inscrição realizada');
+END $$
+
+DELIMITER ;
+
+SELECT * FROM historico_inscricoes;
+
 
 DELIMITER $$
 
