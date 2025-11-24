@@ -37,7 +37,6 @@
               <th>Data</th>
               <th>Local</th>
               <th>Descrição</th>
-              <th>Inscrições Abertas</th>
               <th>Link</th>
             </tr>
           </thead>
@@ -125,13 +124,15 @@
   </body>
   <!-- Adicione este script no final do body -->
   <script>
+    const API_BASE = "https://volei-api-9efn.onrender.com";
+
     // --- Carregar tabela de torneios no site ---
     async function carregarTabelaTorneios() {
       const tabela = document.getElementById("listaTorneios");
       tabela.innerHTML = "<tr><td colspan='5'>Carregando torneios...</td></tr>";
 
       try {
-        const resposta = await fetch("http://localhost:8800/torneios");
+        const resposta = await fetch(`${API_BASE}/torneios`);
         const dados = await resposta.json();
 
         tabela.innerHTML = "";
@@ -145,19 +146,18 @@
         dados.data.forEach((t) => {
           const linha = document.createElement("tr");
           linha.innerHTML = `
-            <td>${t.nome}</td>
-            <td>${new Date(t.data).toLocaleDateString("pt-BR")}</td>
-            <td>${t.local}</td>
-            <td>${t.descricao || "-"}</td>
-            <td>Sim</td>
-            <td>
-              ${
-                t.link
-                  ? `<a href="${t.link}" target="_blank">Acessar Link</a>`
-                  : "-"
-              }
-            </td>
-          `;
+          <td>${t.nome}</td>
+          <td>${new Date(t.data).toLocaleDateString("pt-BR")}</td>
+          <td>${t.local}</td>
+          <td>${t.descricao || "-"}</td>
+          <td>
+            ${
+              t.link
+                ? `<a href="${t.link}" target="_blank">Acessar Link</a>`
+                : "-"
+            }
+          </td>
+        `;
           tabela.appendChild(linha);
         });
       } catch (error) {
@@ -170,7 +170,7 @@
     // --- Carregar torneios no select do formulário ---
     async function carregarSelectTorneios() {
       try {
-        const resp = await fetch("http://localhost:8800/torneios");
+        const resp = await fetch(`${API_BASE}/torneios`);
         const dados = await resp.json();
         const select = document.getElementById("torneio");
 
@@ -206,7 +206,7 @@
       };
 
       try {
-        const resp = await fetch("http://localhost:8800/inscricoes", {
+        const resp = await fetch(`${API_BASE}/inscricoes`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(dados),

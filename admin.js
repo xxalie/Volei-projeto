@@ -6,6 +6,8 @@
   }
 })();
 
+const API_BASE = "https://volei-api-9efn.onrender.com";
+
 // === GERAR RELATÓRIO ===
 const btnRelatorio = document.getElementById("btnRelatorio");
 const secaoRelatorio = document.getElementById("relatorio");
@@ -13,7 +15,7 @@ const dadosRelatorio = document.getElementById("dadosRelatorio");
 
 btnRelatorio.addEventListener("click", async () => {
   try {
-    const resp = await fetch("http://localhost:8800/relatorio");
+    const resp = await fetch(`${API_BASE}/relatorio`);
     const data = await resp.json();
 
     if (!data.success) {
@@ -81,7 +83,7 @@ btnHistorico.addEventListener("click", async () => {
     tabelaHistorico.innerHTML =
       "<tr><td colspan='5'>Carregando histórico...</td></tr>";
 
-    const resp = await fetch("http://localhost:8800/historico");
+    const resp = await fetch(`${API_BASE}/historico`);
     const data = await resp.json();
 
     if (!data.success) {
@@ -136,7 +138,7 @@ async function carregarTorneios() {
     "<tr><td colspan='7'>Carregando torneios...</td></tr>";
 
   try {
-    const resp = await fetch("http://localhost:8800/torneios");
+    const resp = await fetch(`${API_BASE}/torneios`);
     const dados = await resp.json();
 
     tabelaTorneios.innerHTML = "";
@@ -185,7 +187,7 @@ document.getElementById("formTorneio").addEventListener("submit", async (e) => {
   };
 
   try {
-    const resp = await fetch("http://localhost:8800/torneios", {
+    const resp = await fetch(`${API_BASE}/torneios`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dados),
@@ -197,6 +199,7 @@ document.getElementById("formTorneio").addEventListener("submit", async (e) => {
     e.target.reset();
     carregarTorneios();
   } catch (error) {
+    console.error("Erro ao cadastrar torneio:", error);
     msgTorneio.textContent = "Erro ao cadastrar torneio.";
     msgTorneio.style.color = "red";
   }
@@ -207,7 +210,7 @@ async function deletarTorneio(id) {
   if (!confirm("Deseja realmente excluir este torneio?")) return;
 
   try {
-    const resp = await fetch(`http://localhost:8800/torneios/${id}`, {
+    const resp = await fetch(`${API_BASE}/torneios/${id}`, {
       method: "DELETE",
     });
     const result = await resp.json();
@@ -215,6 +218,7 @@ async function deletarTorneio(id) {
     carregarTorneios();
     carregarInscricoes();
   } catch (error) {
+    console.error("Erro ao deletar torneio:", error);
     alert("Erro ao deletar torneio.");
   }
 }
@@ -233,7 +237,7 @@ async function editarTorneio(id) {
   }
 
   try {
-    const resp = await fetch(`http://localhost:8800/torneios/${id}`, {
+    const resp = await fetch(`${API_BASE}/torneios/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -249,6 +253,7 @@ async function editarTorneio(id) {
     alert(result.message);
     carregarTorneios();
   } catch (error) {
+    console.error("Erro ao editar torneio:", error);
     alert("Erro ao editar torneio.");
   }
 }
@@ -260,7 +265,7 @@ async function carregarInscricoes() {
   painelInscritos.innerHTML = "<p>Carregando inscrições...</p>";
 
   try {
-    const resp = await fetch("http://localhost:8800/inscricoes");
+    const resp = await fetch(`${API_BASE}/inscricoes`);
     const dados = await resp.json();
 
     if (!dados.data || dados.data.length === 0) {
@@ -323,13 +328,14 @@ async function carregarInscricoes() {
 async function excluirInscricao(id) {
   if (!confirm("Deseja realmente excluir esta inscrição?")) return;
   try {
-    const resp = await fetch(`http://localhost:8800/inscricoes/${id}`, {
+    const resp = await fetch(`${API_BASE}/inscricoes/${id}`, {
       method: "DELETE",
     });
     const result = await resp.json();
     alert(result.message);
     carregarInscricoes();
   } catch (error) {
+    console.error("Erro ao excluir inscrição:", error);
     alert("Erro ao excluir inscrição.");
   }
 }
