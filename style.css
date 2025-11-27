@@ -2,6 +2,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
   font-family: Arial, sans-serif;
   background: #f0f4f8;
@@ -40,6 +41,19 @@ p {
 }
 
 /* ==================== TABELA ==================== */
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Garantir que tabela ocupe o tamanho real */
+.table-responsive table {
+  width: 100%;
+  min-width: 700px; /* evita quebrar colunas */
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -57,6 +71,7 @@ th {
   background: #ffd700;
   color: #0057a0;
 }
+
 td {
   background: #ffffff;
   color: #333333;
@@ -98,6 +113,7 @@ footer {
   object-fit: cover;
   transition: transform 0.3s ease;
 }
+
 .gallery img:hover {
   transform: scale(1.05);
 }
@@ -116,18 +132,24 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #ffd700;
   font-size: 16px;
+  font-family: inherit;
+  box-sizing: border-box;
 }
+
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: none;
   border-color: #0057a0;
   box-shadow: 0 0 5px #0057a0;
 }
+
 button {
   padding: 10px;
   border-radius: 5px;
@@ -150,38 +172,14 @@ button:hover {
   font-weight: bold;
 }
 
+/* ==================== AÇÕES (ADMIN) ==================== */
 .ActionsData {
   display: flex;
   justify-content: space-around;
+  gap: 16px;
 }
 
-/* ==================== RESPONSIVIDADE ==================== */
-@media (max-width: 600px) {
-  .container {
-    padding: 12px;
-  }
-
-  h1,
-  h2 {
-    font-size: 22px;
-  }
-
-  table,
-  th,
-  td {
-    font-size: 14px;
-  }
-
-  .gallery {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .gallery img {
-    width: 90%;
-    height: auto;
-  }
-}
+/* ==================== NAVBAR ==================== */
 nav {
   background-color: #0057a0;
   padding: 10px 0;
@@ -190,23 +188,29 @@ nav {
   top: 0;
   z-index: 10;
 }
+
 nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 nav li {
-  display: inline;
+  display: inline-block;
   margin: 0 15px;
 }
+
 nav a {
   color: white;
   font-weight: bold;
   text-decoration: none;
 }
+
 nav a:hover {
   color: #ffd700;
 }
+
+/* ==================== VOLTAR AO TOPO ==================== */
 .voltar-topo {
   display: block;
   text-align: center;
@@ -215,14 +219,114 @@ nav a:hover {
   text-decoration: none;
   font-weight: bold;
 }
+
 .voltar-topo:hover {
   color: #ffd700;
 }
+
+/* ==================== INSCRITOS (ADMIN) ==================== */
 #tabela-inscritos,
 #tabela-inscritos + h3 {
   display: none;
 }
+
 #tabela-inscritos.visible,
 #tabela-inscritos + h3.visible {
   display: table;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+
+/* Telas médias (tablets) */
+@media (max-width: 900px) {
+  .container {
+    margin: 20px auto;
+    padding: 16px;
+    max-width: 95%;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .ActionsData {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .ActionsData button {
+    flex: 1 1 200px;
+  }
+}
+
+/* Telas pequenas (celular) */
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    margin: 16px auto;
+    padding: 12px;
+    max-width: 95%;
+  }
+
+  h1,
+  h2 {
+    font-size: 22px;
+  }
+
+  /* Navbar empilhada em coluna no mobile, mesmo estilo */
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  nav li {
+    display: block;
+    margin: 4px 0;
+  }
+
+  /* Tabelas com scroll horizontal em telas pequenas */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  th,
+  td {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  /* Galeria mais fluida no mobile */
+  .gallery {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
+
+  /* Botões um abaixo do outro nas ações do admin */
+  .ActionsData {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ActionsData button {
+    width: 100%;
+  }
 }
